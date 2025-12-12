@@ -1,0 +1,57 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id      String   @id @default(auto()) @map("_id") @db.ObjectId
+  clerkId String   @unique
+  name    String?
+  email   String?  @unique
+  image   String?
+  role    UserRole @default(USER)
+
+  myPlaygrounds Playground[]
+
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+enum UserRole {
+  ADMIN
+  USER
+  PREMIUM_USER
+}
+
+enum Templates {
+REACT 
+NEXTJS
+EXPRESS
+DJANGO
+VUE 
+HONO
+ANGULAR
+}
+
+model Playground{
+  id         String     @id @default(cuid()) @map("_id")
+  title        String
+  description String?
+  template    Templates @default(REACT)
+  createdAt  DateTime   @default(now())
+  updatedAt  DateTime   @updatedAt
+  userId String 
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+
+
+//todo template files
+}
+
+
