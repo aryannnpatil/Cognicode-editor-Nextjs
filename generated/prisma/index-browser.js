@@ -135,6 +135,15 @@ exports.Prisma.PlaygroundScalarFieldEnum = {
   userId: 'userId'
 };
 
+exports.Prisma.StarMarkScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  playgroundId: 'playgroundId',
+  isMarked: 'isMarked',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -162,7 +171,8 @@ exports.Templates = exports.$Enums.Templates = {
 
 exports.Prisma.ModelName = {
   User: 'User',
-  Playground: 'Playground'
+  Playground: 'Playground',
+  StarMark: 'StarMark'
 };
 
 /**

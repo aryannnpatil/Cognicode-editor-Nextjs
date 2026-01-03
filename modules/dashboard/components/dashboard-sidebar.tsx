@@ -133,7 +133,7 @@ export function DashboardSidebar({
             <SidebarMenu>
               {starredPlaygrounds.length === 0 ? (
                 <div className="text-center text-muted-foreground py-4 w-full">
-                  Create your playground
+                  No starred playgrounds
                 </div>
               ) : (
                 starredPlaygrounds.map((pg) => {

@@ -40,8 +40,7 @@ type TemplateSelectionModalProps = {
       | "VUE"
       | "HONO"
       | "ANGULAR"
-      | "DJANGO"
-      | "FLASK";
+      | "DJANGO";
     description?: string;
   }) => void;
 };
@@ -139,7 +138,7 @@ const templates: TemplateOption[] = [
       "Dependency Injection",
       "TypeScript Support",
     ],
-    category: "fullstack",
+    category: "frontend",
   },
   {
     id: "django",
