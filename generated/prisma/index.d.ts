@@ -28,6 +28,11 @@ export type Playground = $Result.DefaultSelection<Prisma.$PlaygroundPayload>
  * 
  */
 export type StarMark = $Result.DefaultSelection<Prisma.$StarMarkPayload>
+/**
+ * Model TemplateFiles
+ * 
+ */
+export type TemplateFiles = $Result.DefaultSelection<Prisma.$TemplateFilesPayload>
 
 /**
  * Enums
@@ -178,6 +183,16 @@ export class PrismaClient<
     * ```
     */
   get starMark(): Prisma.StarMarkDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.templateFiles`: Exposes CRUD operations for the **TemplateFiles** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more TemplateFiles
+    * const templateFiles = await prisma.templateFiles.findMany()
+    * ```
+    */
+  get templateFiles(): Prisma.TemplateFilesDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -621,7 +636,8 @@ export namespace Prisma {
   export const ModelName: {
     User: 'User',
     Playground: 'Playground',
-    StarMark: 'StarMark'
+    StarMark: 'StarMark',
+    TemplateFiles: 'TemplateFiles'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -640,7 +656,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "playground" | "starMark"
+      modelProps: "user" | "playground" | "starMark" | "templateFiles"
       txIsolationLevel: never
     }
     model: {
@@ -866,6 +882,80 @@ export namespace Prisma {
           }
         }
       }
+      TemplateFiles: {
+        payload: Prisma.$TemplateFilesPayload<ExtArgs>
+        fields: Prisma.TemplateFilesFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.TemplateFilesFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TemplateFilesPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.TemplateFilesFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TemplateFilesPayload>
+          }
+          findFirst: {
+            args: Prisma.TemplateFilesFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TemplateFilesPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.TemplateFilesFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TemplateFilesPayload>
+          }
+          findMany: {
+            args: Prisma.TemplateFilesFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TemplateFilesPayload>[]
+          }
+          create: {
+            args: Prisma.TemplateFilesCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TemplateFilesPayload>
+          }
+          createMany: {
+            args: Prisma.TemplateFilesCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.TemplateFilesDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TemplateFilesPayload>
+          }
+          update: {
+            args: Prisma.TemplateFilesUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TemplateFilesPayload>
+          }
+          deleteMany: {
+            args: Prisma.TemplateFilesDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.TemplateFilesUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.TemplateFilesUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TemplateFilesPayload>
+          }
+          aggregate: {
+            args: Prisma.TemplateFilesAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateTemplateFiles>
+          }
+          groupBy: {
+            args: Prisma.TemplateFilesGroupByArgs<ExtArgs>
+            result: $Utils.Optional<TemplateFilesGroupByOutputType>[]
+          }
+          findRaw: {
+            args: Prisma.TemplateFilesFindRawArgs<ExtArgs>
+            result: JsonObject
+          }
+          aggregateRaw: {
+            args: Prisma.TemplateFilesAggregateRawArgs<ExtArgs>
+            result: JsonObject
+          }
+          count: {
+            args: Prisma.TemplateFilesCountArgs<ExtArgs>
+            result: $Utils.Optional<TemplateFilesCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -948,6 +1038,7 @@ export namespace Prisma {
     user?: UserOmit
     playground?: PlaygroundOmit
     starMark?: StarMarkOmit
+    templateFiles?: TemplateFilesOmit
   }
 
   /* Types for Logging */
@@ -1069,10 +1160,12 @@ export namespace Prisma {
 
   export type PlaygroundCountOutputType = {
     StarMark: number
+    templateFiles: number
   }
 
   export type PlaygroundCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     StarMark?: boolean | PlaygroundCountOutputTypeCountStarMarkArgs
+    templateFiles?: boolean | PlaygroundCountOutputTypeCountTemplateFilesArgs
   }
 
   // Custom InputTypes
@@ -1091,6 +1184,13 @@ export namespace Prisma {
    */
   export type PlaygroundCountOutputTypeCountStarMarkArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: StarMarkWhereInput
+  }
+
+  /**
+   * PlaygroundCountOutputType without action
+   */
+  export type PlaygroundCountOutputTypeCountTemplateFilesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TemplateFilesWhereInput
   }
 
 
@@ -2346,6 +2446,7 @@ export namespace Prisma {
     userId?: boolean
     StarMark?: boolean | Playground$StarMarkArgs<ExtArgs>
     user?: boolean | UserDefaultArgs<ExtArgs>
+    templateFiles?: boolean | Playground$templateFilesArgs<ExtArgs>
     _count?: boolean | PlaygroundCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["playground"]>
 
@@ -2365,6 +2466,7 @@ export namespace Prisma {
   export type PlaygroundInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     StarMark?: boolean | Playground$StarMarkArgs<ExtArgs>
     user?: boolean | UserDefaultArgs<ExtArgs>
+    templateFiles?: boolean | Playground$templateFilesArgs<ExtArgs>
     _count?: boolean | PlaygroundCountOutputTypeDefaultArgs<ExtArgs>
   }
 
@@ -2373,6 +2475,7 @@ export namespace Prisma {
     objects: {
       StarMark: Prisma.$StarMarkPayload<ExtArgs>[]
       user: Prisma.$UserPayload<ExtArgs>
+      templateFiles: Prisma.$TemplateFilesPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -2747,6 +2850,7 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     StarMark<T extends Playground$StarMarkArgs<ExtArgs> = {}>(args?: Subset<T, Playground$StarMarkArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$StarMarkPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    templateFiles<T extends Playground$templateFilesArgs<ExtArgs> = {}>(args?: Subset<T, Playground$templateFilesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TemplateFilesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3174,6 +3278,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: StarMarkScalarFieldEnum | StarMarkScalarFieldEnum[]
+  }
+
+  /**
+   * Playground.templateFiles
+   */
+  export type Playground$templateFilesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TemplateFiles
+     */
+    select?: TemplateFilesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TemplateFiles
+     */
+    omit?: TemplateFilesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TemplateFilesInclude<ExtArgs> | null
+    where?: TemplateFilesWhereInput
+    orderBy?: TemplateFilesOrderByWithRelationInput | TemplateFilesOrderByWithRelationInput[]
+    cursor?: TemplateFilesWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: TemplateFilesScalarFieldEnum | TemplateFilesScalarFieldEnum[]
   }
 
   /**
@@ -4190,6 +4318,981 @@ export namespace Prisma {
 
 
   /**
+   * Model TemplateFiles
+   */
+
+  export type AggregateTemplateFiles = {
+    _count: TemplateFilesCountAggregateOutputType | null
+    _min: TemplateFilesMinAggregateOutputType | null
+    _max: TemplateFilesMaxAggregateOutputType | null
+  }
+
+  export type TemplateFilesMinAggregateOutputType = {
+    id: string | null
+    playgroundId: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type TemplateFilesMaxAggregateOutputType = {
+    id: string | null
+    playgroundId: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type TemplateFilesCountAggregateOutputType = {
+    id: number
+    playgroundId: number
+    content: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type TemplateFilesMinAggregateInputType = {
+    id?: true
+    playgroundId?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type TemplateFilesMaxAggregateInputType = {
+    id?: true
+    playgroundId?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type TemplateFilesCountAggregateInputType = {
+    id?: true
+    playgroundId?: true
+    content?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type TemplateFilesAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which TemplateFiles to aggregate.
+     */
+    where?: TemplateFilesWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of TemplateFiles to fetch.
+     */
+    orderBy?: TemplateFilesOrderByWithRelationInput | TemplateFilesOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: TemplateFilesWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` TemplateFiles from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` TemplateFiles.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned TemplateFiles
+    **/
+    _count?: true | TemplateFilesCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: TemplateFilesMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: TemplateFilesMaxAggregateInputType
+  }
+
+  export type GetTemplateFilesAggregateType<T extends TemplateFilesAggregateArgs> = {
+        [P in keyof T & keyof AggregateTemplateFiles]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateTemplateFiles[P]>
+      : GetScalarType<T[P], AggregateTemplateFiles[P]>
+  }
+
+
+
+
+  export type TemplateFilesGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TemplateFilesWhereInput
+    orderBy?: TemplateFilesOrderByWithAggregationInput | TemplateFilesOrderByWithAggregationInput[]
+    by: TemplateFilesScalarFieldEnum[] | TemplateFilesScalarFieldEnum
+    having?: TemplateFilesScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: TemplateFilesCountAggregateInputType | true
+    _min?: TemplateFilesMinAggregateInputType
+    _max?: TemplateFilesMaxAggregateInputType
+  }
+
+  export type TemplateFilesGroupByOutputType = {
+    id: string
+    playgroundId: string
+    content: JsonValue
+    createdAt: Date
+    updatedAt: Date
+    _count: TemplateFilesCountAggregateOutputType | null
+    _min: TemplateFilesMinAggregateOutputType | null
+    _max: TemplateFilesMaxAggregateOutputType | null
+  }
+
+  type GetTemplateFilesGroupByPayload<T extends TemplateFilesGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<TemplateFilesGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof TemplateFilesGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], TemplateFilesGroupByOutputType[P]>
+            : GetScalarType<T[P], TemplateFilesGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type TemplateFilesSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    playgroundId?: boolean
+    content?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    playground?: boolean | PlaygroundDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["templateFiles"]>
+
+
+
+  export type TemplateFilesSelectScalar = {
+    id?: boolean
+    playgroundId?: boolean
+    content?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type TemplateFilesOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "playgroundId" | "content" | "createdAt" | "updatedAt", ExtArgs["result"]["templateFiles"]>
+  export type TemplateFilesInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    playground?: boolean | PlaygroundDefaultArgs<ExtArgs>
+  }
+
+  export type $TemplateFilesPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "TemplateFiles"
+    objects: {
+      playground: Prisma.$PlaygroundPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      playgroundId: string
+      content: Prisma.JsonValue
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["templateFiles"]>
+    composites: {}
+  }
+
+  type TemplateFilesGetPayload<S extends boolean | null | undefined | TemplateFilesDefaultArgs> = $Result.GetResult<Prisma.$TemplateFilesPayload, S>
+
+  type TemplateFilesCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<TemplateFilesFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: TemplateFilesCountAggregateInputType | true
+    }
+
+  export interface TemplateFilesDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['TemplateFiles'], meta: { name: 'TemplateFiles' } }
+    /**
+     * Find zero or one TemplateFiles that matches the filter.
+     * @param {TemplateFilesFindUniqueArgs} args - Arguments to find a TemplateFiles
+     * @example
+     * // Get one TemplateFiles
+     * const templateFiles = await prisma.templateFiles.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends TemplateFilesFindUniqueArgs>(args: SelectSubset<T, TemplateFilesFindUniqueArgs<ExtArgs>>): Prisma__TemplateFilesClient<$Result.GetResult<Prisma.$TemplateFilesPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one TemplateFiles that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {TemplateFilesFindUniqueOrThrowArgs} args - Arguments to find a TemplateFiles
+     * @example
+     * // Get one TemplateFiles
+     * const templateFiles = await prisma.templateFiles.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends TemplateFilesFindUniqueOrThrowArgs>(args: SelectSubset<T, TemplateFilesFindUniqueOrThrowArgs<ExtArgs>>): Prisma__TemplateFilesClient<$Result.GetResult<Prisma.$TemplateFilesPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first TemplateFiles that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TemplateFilesFindFirstArgs} args - Arguments to find a TemplateFiles
+     * @example
+     * // Get one TemplateFiles
+     * const templateFiles = await prisma.templateFiles.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends TemplateFilesFindFirstArgs>(args?: SelectSubset<T, TemplateFilesFindFirstArgs<ExtArgs>>): Prisma__TemplateFilesClient<$Result.GetResult<Prisma.$TemplateFilesPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first TemplateFiles that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TemplateFilesFindFirstOrThrowArgs} args - Arguments to find a TemplateFiles
+     * @example
+     * // Get one TemplateFiles
+     * const templateFiles = await prisma.templateFiles.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends TemplateFilesFindFirstOrThrowArgs>(args?: SelectSubset<T, TemplateFilesFindFirstOrThrowArgs<ExtArgs>>): Prisma__TemplateFilesClient<$Result.GetResult<Prisma.$TemplateFilesPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more TemplateFiles that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TemplateFilesFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all TemplateFiles
+     * const templateFiles = await prisma.templateFiles.findMany()
+     * 
+     * // Get first 10 TemplateFiles
+     * const templateFiles = await prisma.templateFiles.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const templateFilesWithIdOnly = await prisma.templateFiles.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends TemplateFilesFindManyArgs>(args?: SelectSubset<T, TemplateFilesFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TemplateFilesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a TemplateFiles.
+     * @param {TemplateFilesCreateArgs} args - Arguments to create a TemplateFiles.
+     * @example
+     * // Create one TemplateFiles
+     * const TemplateFiles = await prisma.templateFiles.create({
+     *   data: {
+     *     // ... data to create a TemplateFiles
+     *   }
+     * })
+     * 
+     */
+    create<T extends TemplateFilesCreateArgs>(args: SelectSubset<T, TemplateFilesCreateArgs<ExtArgs>>): Prisma__TemplateFilesClient<$Result.GetResult<Prisma.$TemplateFilesPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many TemplateFiles.
+     * @param {TemplateFilesCreateManyArgs} args - Arguments to create many TemplateFiles.
+     * @example
+     * // Create many TemplateFiles
+     * const templateFiles = await prisma.templateFiles.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends TemplateFilesCreateManyArgs>(args?: SelectSubset<T, TemplateFilesCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a TemplateFiles.
+     * @param {TemplateFilesDeleteArgs} args - Arguments to delete one TemplateFiles.
+     * @example
+     * // Delete one TemplateFiles
+     * const TemplateFiles = await prisma.templateFiles.delete({
+     *   where: {
+     *     // ... filter to delete one TemplateFiles
+     *   }
+     * })
+     * 
+     */
+    delete<T extends TemplateFilesDeleteArgs>(args: SelectSubset<T, TemplateFilesDeleteArgs<ExtArgs>>): Prisma__TemplateFilesClient<$Result.GetResult<Prisma.$TemplateFilesPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one TemplateFiles.
+     * @param {TemplateFilesUpdateArgs} args - Arguments to update one TemplateFiles.
+     * @example
+     * // Update one TemplateFiles
+     * const templateFiles = await prisma.templateFiles.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends TemplateFilesUpdateArgs>(args: SelectSubset<T, TemplateFilesUpdateArgs<ExtArgs>>): Prisma__TemplateFilesClient<$Result.GetResult<Prisma.$TemplateFilesPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more TemplateFiles.
+     * @param {TemplateFilesDeleteManyArgs} args - Arguments to filter TemplateFiles to delete.
+     * @example
+     * // Delete a few TemplateFiles
+     * const { count } = await prisma.templateFiles.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends TemplateFilesDeleteManyArgs>(args?: SelectSubset<T, TemplateFilesDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more TemplateFiles.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TemplateFilesUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many TemplateFiles
+     * const templateFiles = await prisma.templateFiles.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends TemplateFilesUpdateManyArgs>(args: SelectSubset<T, TemplateFilesUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one TemplateFiles.
+     * @param {TemplateFilesUpsertArgs} args - Arguments to update or create a TemplateFiles.
+     * @example
+     * // Update or create a TemplateFiles
+     * const templateFiles = await prisma.templateFiles.upsert({
+     *   create: {
+     *     // ... data to create a TemplateFiles
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the TemplateFiles we want to update
+     *   }
+     * })
+     */
+    upsert<T extends TemplateFilesUpsertArgs>(args: SelectSubset<T, TemplateFilesUpsertArgs<ExtArgs>>): Prisma__TemplateFilesClient<$Result.GetResult<Prisma.$TemplateFilesPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more TemplateFiles that matches the filter.
+     * @param {TemplateFilesFindRawArgs} args - Select which filters you would like to apply.
+     * @example
+     * const templateFiles = await prisma.templateFiles.findRaw({
+     *   filter: { age: { $gt: 25 } }
+     * })
+     */
+    findRaw(args?: TemplateFilesFindRawArgs): Prisma.PrismaPromise<JsonObject>
+
+    /**
+     * Perform aggregation operations on a TemplateFiles.
+     * @param {TemplateFilesAggregateRawArgs} args - Select which aggregations you would like to apply.
+     * @example
+     * const templateFiles = await prisma.templateFiles.aggregateRaw({
+     *   pipeline: [
+     *     { $match: { status: "registered" } },
+     *     { $group: { _id: "$country", total: { $sum: 1 } } }
+     *   ]
+     * })
+     */
+    aggregateRaw(args?: TemplateFilesAggregateRawArgs): Prisma.PrismaPromise<JsonObject>
+
+
+    /**
+     * Count the number of TemplateFiles.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TemplateFilesCountArgs} args - Arguments to filter TemplateFiles to count.
+     * @example
+     * // Count the number of TemplateFiles
+     * const count = await prisma.templateFiles.count({
+     *   where: {
+     *     // ... the filter for the TemplateFiles we want to count
+     *   }
+     * })
+    **/
+    count<T extends TemplateFilesCountArgs>(
+      args?: Subset<T, TemplateFilesCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], TemplateFilesCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a TemplateFiles.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TemplateFilesAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends TemplateFilesAggregateArgs>(args: Subset<T, TemplateFilesAggregateArgs>): Prisma.PrismaPromise<GetTemplateFilesAggregateType<T>>
+
+    /**
+     * Group by TemplateFiles.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TemplateFilesGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends TemplateFilesGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: TemplateFilesGroupByArgs['orderBy'] }
+        : { orderBy?: TemplateFilesGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, TemplateFilesGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetTemplateFilesGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the TemplateFiles model
+   */
+  readonly fields: TemplateFilesFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for TemplateFiles.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__TemplateFilesClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    playground<T extends PlaygroundDefaultArgs<ExtArgs> = {}>(args?: Subset<T, PlaygroundDefaultArgs<ExtArgs>>): Prisma__PlaygroundClient<$Result.GetResult<Prisma.$PlaygroundPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the TemplateFiles model
+   */
+  interface TemplateFilesFieldRefs {
+    readonly id: FieldRef<"TemplateFiles", 'String'>
+    readonly playgroundId: FieldRef<"TemplateFiles", 'String'>
+    readonly content: FieldRef<"TemplateFiles", 'Json'>
+    readonly createdAt: FieldRef<"TemplateFiles", 'DateTime'>
+    readonly updatedAt: FieldRef<"TemplateFiles", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * TemplateFiles findUnique
+   */
+  export type TemplateFilesFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TemplateFiles
+     */
+    select?: TemplateFilesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TemplateFiles
+     */
+    omit?: TemplateFilesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TemplateFilesInclude<ExtArgs> | null
+    /**
+     * Filter, which TemplateFiles to fetch.
+     */
+    where: TemplateFilesWhereUniqueInput
+  }
+
+  /**
+   * TemplateFiles findUniqueOrThrow
+   */
+  export type TemplateFilesFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TemplateFiles
+     */
+    select?: TemplateFilesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TemplateFiles
+     */
+    omit?: TemplateFilesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TemplateFilesInclude<ExtArgs> | null
+    /**
+     * Filter, which TemplateFiles to fetch.
+     */
+    where: TemplateFilesWhereUniqueInput
+  }
+
+  /**
+   * TemplateFiles findFirst
+   */
+  export type TemplateFilesFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TemplateFiles
+     */
+    select?: TemplateFilesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TemplateFiles
+     */
+    omit?: TemplateFilesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TemplateFilesInclude<ExtArgs> | null
+    /**
+     * Filter, which TemplateFiles to fetch.
+     */
+    where?: TemplateFilesWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of TemplateFiles to fetch.
+     */
+    orderBy?: TemplateFilesOrderByWithRelationInput | TemplateFilesOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for TemplateFiles.
+     */
+    cursor?: TemplateFilesWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` TemplateFiles from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` TemplateFiles.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of TemplateFiles.
+     */
+    distinct?: TemplateFilesScalarFieldEnum | TemplateFilesScalarFieldEnum[]
+  }
+
+  /**
+   * TemplateFiles findFirstOrThrow
+   */
+  export type TemplateFilesFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TemplateFiles
+     */
+    select?: TemplateFilesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TemplateFiles
+     */
+    omit?: TemplateFilesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TemplateFilesInclude<ExtArgs> | null
+    /**
+     * Filter, which TemplateFiles to fetch.
+     */
+    where?: TemplateFilesWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of TemplateFiles to fetch.
+     */
+    orderBy?: TemplateFilesOrderByWithRelationInput | TemplateFilesOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for TemplateFiles.
+     */
+    cursor?: TemplateFilesWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` TemplateFiles from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` TemplateFiles.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of TemplateFiles.
+     */
+    distinct?: TemplateFilesScalarFieldEnum | TemplateFilesScalarFieldEnum[]
+  }
+
+  /**
+   * TemplateFiles findMany
+   */
+  export type TemplateFilesFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TemplateFiles
+     */
+    select?: TemplateFilesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TemplateFiles
+     */
+    omit?: TemplateFilesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TemplateFilesInclude<ExtArgs> | null
+    /**
+     * Filter, which TemplateFiles to fetch.
+     */
+    where?: TemplateFilesWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of TemplateFiles to fetch.
+     */
+    orderBy?: TemplateFilesOrderByWithRelationInput | TemplateFilesOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing TemplateFiles.
+     */
+    cursor?: TemplateFilesWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` TemplateFiles from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` TemplateFiles.
+     */
+    skip?: number
+    distinct?: TemplateFilesScalarFieldEnum | TemplateFilesScalarFieldEnum[]
+  }
+
+  /**
+   * TemplateFiles create
+   */
+  export type TemplateFilesCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TemplateFiles
+     */
+    select?: TemplateFilesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TemplateFiles
+     */
+    omit?: TemplateFilesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TemplateFilesInclude<ExtArgs> | null
+    /**
+     * The data needed to create a TemplateFiles.
+     */
+    data: XOR<TemplateFilesCreateInput, TemplateFilesUncheckedCreateInput>
+  }
+
+  /**
+   * TemplateFiles createMany
+   */
+  export type TemplateFilesCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many TemplateFiles.
+     */
+    data: TemplateFilesCreateManyInput | TemplateFilesCreateManyInput[]
+  }
+
+  /**
+   * TemplateFiles update
+   */
+  export type TemplateFilesUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TemplateFiles
+     */
+    select?: TemplateFilesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TemplateFiles
+     */
+    omit?: TemplateFilesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TemplateFilesInclude<ExtArgs> | null
+    /**
+     * The data needed to update a TemplateFiles.
+     */
+    data: XOR<TemplateFilesUpdateInput, TemplateFilesUncheckedUpdateInput>
+    /**
+     * Choose, which TemplateFiles to update.
+     */
+    where: TemplateFilesWhereUniqueInput
+  }
+
+  /**
+   * TemplateFiles updateMany
+   */
+  export type TemplateFilesUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update TemplateFiles.
+     */
+    data: XOR<TemplateFilesUpdateManyMutationInput, TemplateFilesUncheckedUpdateManyInput>
+    /**
+     * Filter which TemplateFiles to update
+     */
+    where?: TemplateFilesWhereInput
+    /**
+     * Limit how many TemplateFiles to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * TemplateFiles upsert
+   */
+  export type TemplateFilesUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TemplateFiles
+     */
+    select?: TemplateFilesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TemplateFiles
+     */
+    omit?: TemplateFilesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TemplateFilesInclude<ExtArgs> | null
+    /**
+     * The filter to search for the TemplateFiles to update in case it exists.
+     */
+    where: TemplateFilesWhereUniqueInput
+    /**
+     * In case the TemplateFiles found by the `where` argument doesn't exist, create a new TemplateFiles with this data.
+     */
+    create: XOR<TemplateFilesCreateInput, TemplateFilesUncheckedCreateInput>
+    /**
+     * In case the TemplateFiles was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<TemplateFilesUpdateInput, TemplateFilesUncheckedUpdateInput>
+  }
+
+  /**
+   * TemplateFiles delete
+   */
+  export type TemplateFilesDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TemplateFiles
+     */
+    select?: TemplateFilesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TemplateFiles
+     */
+    omit?: TemplateFilesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TemplateFilesInclude<ExtArgs> | null
+    /**
+     * Filter which TemplateFiles to delete.
+     */
+    where: TemplateFilesWhereUniqueInput
+  }
+
+  /**
+   * TemplateFiles deleteMany
+   */
+  export type TemplateFilesDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which TemplateFiles to delete
+     */
+    where?: TemplateFilesWhereInput
+    /**
+     * Limit how many TemplateFiles to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * TemplateFiles findRaw
+   */
+  export type TemplateFilesFindRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The query predicate filter. If unspecified, then all documents in the collection will match the predicate. ${@link https://docs.mongodb.com/manual/reference/operator/query MongoDB Docs}.
+     */
+    filter?: InputJsonValue
+    /**
+     * Additional options to pass to the `find` command ${@link https://docs.mongodb.com/manual/reference/command/find/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+  /**
+   * TemplateFiles aggregateRaw
+   */
+  export type TemplateFilesAggregateRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * An array of aggregation stages to process and transform the document stream via the aggregation pipeline. ${@link https://docs.mongodb.com/manual/reference/operator/aggregation-pipeline MongoDB Docs}.
+     */
+    pipeline?: InputJsonValue[]
+    /**
+     * Additional options to pass to the `aggregate` command ${@link https://docs.mongodb.com/manual/reference/command/aggregate/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+  /**
+   * TemplateFiles without action
+   */
+  export type TemplateFilesDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TemplateFiles
+     */
+    select?: TemplateFilesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TemplateFiles
+     */
+    omit?: TemplateFilesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TemplateFilesInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -4230,6 +5333,17 @@ export namespace Prisma {
   };
 
   export type StarMarkScalarFieldEnum = (typeof StarMarkScalarFieldEnum)[keyof typeof StarMarkScalarFieldEnum]
+
+
+  export const TemplateFilesScalarFieldEnum: {
+    id: 'id',
+    playgroundId: 'playgroundId',
+    content: 'content',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type TemplateFilesScalarFieldEnum = (typeof TemplateFilesScalarFieldEnum)[keyof typeof TemplateFilesScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -4313,6 +5427,13 @@ export namespace Prisma {
    * Reference to a field of type 'Boolean'
    */
   export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
+    
+
+
+  /**
+   * Reference to a field of type 'Json'
+   */
+  export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Json'>
     
 
 
@@ -4419,6 +5540,7 @@ export namespace Prisma {
     userId?: StringFilter<"Playground"> | string
     StarMark?: StarMarkListRelationFilter
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    templateFiles?: TemplateFilesListRelationFilter
   }
 
   export type PlaygroundOrderByWithRelationInput = {
@@ -4431,6 +5553,7 @@ export namespace Prisma {
     userId?: SortOrder
     StarMark?: StarMarkOrderByRelationAggregateInput
     user?: UserOrderByWithRelationInput
+    templateFiles?: TemplateFilesOrderByRelationAggregateInput
   }
 
   export type PlaygroundWhereUniqueInput = Prisma.AtLeast<{
@@ -4446,6 +5569,7 @@ export namespace Prisma {
     userId?: StringFilter<"Playground"> | string
     StarMark?: StarMarkListRelationFilter
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    templateFiles?: TemplateFilesListRelationFilter
   }, "id">
 
   export type PlaygroundOrderByWithAggregationInput = {
@@ -4538,6 +5662,61 @@ export namespace Prisma {
     updatedAt?: DateTimeWithAggregatesFilter<"StarMark"> | Date | string
   }
 
+  export type TemplateFilesWhereInput = {
+    AND?: TemplateFilesWhereInput | TemplateFilesWhereInput[]
+    OR?: TemplateFilesWhereInput[]
+    NOT?: TemplateFilesWhereInput | TemplateFilesWhereInput[]
+    id?: StringFilter<"TemplateFiles"> | string
+    playgroundId?: StringFilter<"TemplateFiles"> | string
+    content?: JsonFilter<"TemplateFiles">
+    createdAt?: DateTimeFilter<"TemplateFiles"> | Date | string
+    updatedAt?: DateTimeFilter<"TemplateFiles"> | Date | string
+    playground?: XOR<PlaygroundScalarRelationFilter, PlaygroundWhereInput>
+  }
+
+  export type TemplateFilesOrderByWithRelationInput = {
+    id?: SortOrder
+    playgroundId?: SortOrder
+    content?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    playground?: PlaygroundOrderByWithRelationInput
+  }
+
+  export type TemplateFilesWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    playgroundId?: string
+    AND?: TemplateFilesWhereInput | TemplateFilesWhereInput[]
+    OR?: TemplateFilesWhereInput[]
+    NOT?: TemplateFilesWhereInput | TemplateFilesWhereInput[]
+    content?: JsonFilter<"TemplateFiles">
+    createdAt?: DateTimeFilter<"TemplateFiles"> | Date | string
+    updatedAt?: DateTimeFilter<"TemplateFiles"> | Date | string
+    playground?: XOR<PlaygroundScalarRelationFilter, PlaygroundWhereInput>
+  }, "id" | "playgroundId">
+
+  export type TemplateFilesOrderByWithAggregationInput = {
+    id?: SortOrder
+    playgroundId?: SortOrder
+    content?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: TemplateFilesCountOrderByAggregateInput
+    _max?: TemplateFilesMaxOrderByAggregateInput
+    _min?: TemplateFilesMinOrderByAggregateInput
+  }
+
+  export type TemplateFilesScalarWhereWithAggregatesInput = {
+    AND?: TemplateFilesScalarWhereWithAggregatesInput | TemplateFilesScalarWhereWithAggregatesInput[]
+    OR?: TemplateFilesScalarWhereWithAggregatesInput[]
+    NOT?: TemplateFilesScalarWhereWithAggregatesInput | TemplateFilesScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"TemplateFiles"> | string
+    playgroundId?: StringWithAggregatesFilter<"TemplateFiles"> | string
+    content?: JsonWithAggregatesFilter<"TemplateFiles">
+    createdAt?: DateTimeWithAggregatesFilter<"TemplateFiles"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"TemplateFiles"> | Date | string
+  }
+
   export type UserCreateInput = {
     id?: string
     clerkId: string
@@ -4628,6 +5807,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     StarMark?: StarMarkCreateNestedManyWithoutPlaygroundInput
     user: UserCreateNestedOneWithoutMyPlaygroundsInput
+    templateFiles?: TemplateFilesCreateNestedManyWithoutPlaygroundInput
   }
 
   export type PlaygroundUncheckedCreateInput = {
@@ -4639,6 +5819,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     userId: string
     StarMark?: StarMarkUncheckedCreateNestedManyWithoutPlaygroundInput
+    templateFiles?: TemplateFilesUncheckedCreateNestedManyWithoutPlaygroundInput
   }
 
   export type PlaygroundUpdateInput = {
@@ -4649,6 +5830,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     StarMark?: StarMarkUpdateManyWithoutPlaygroundNestedInput
     user?: UserUpdateOneRequiredWithoutMyPlaygroundsNestedInput
+    templateFiles?: TemplateFilesUpdateManyWithoutPlaygroundNestedInput
   }
 
   export type PlaygroundUncheckedUpdateInput = {
@@ -4659,6 +5841,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     userId?: StringFieldUpdateOperationsInput | string
     StarMark?: StarMarkUncheckedUpdateManyWithoutPlaygroundNestedInput
+    templateFiles?: TemplateFilesUncheckedUpdateManyWithoutPlaygroundNestedInput
   }
 
   export type PlaygroundCreateManyInput = {
@@ -4741,6 +5924,57 @@ export namespace Prisma {
     userId?: StringFieldUpdateOperationsInput | string
     playgroundId?: StringFieldUpdateOperationsInput | string
     isMarked?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TemplateFilesCreateInput = {
+    id?: string
+    content: InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    playground: PlaygroundCreateNestedOneWithoutTemplateFilesInput
+  }
+
+  export type TemplateFilesUncheckedCreateInput = {
+    id?: string
+    playgroundId: string
+    content: InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type TemplateFilesUpdateInput = {
+    content?: InputJsonValue | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    playground?: PlaygroundUpdateOneRequiredWithoutTemplateFilesNestedInput
+  }
+
+  export type TemplateFilesUncheckedUpdateInput = {
+    playgroundId?: StringFieldUpdateOperationsInput | string
+    content?: InputJsonValue | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TemplateFilesCreateManyInput = {
+    id?: string
+    playgroundId: string
+    content: InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type TemplateFilesUpdateManyMutationInput = {
+    content?: InputJsonValue | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TemplateFilesUncheckedUpdateManyInput = {
+    playgroundId?: StringFieldUpdateOperationsInput | string
+    content?: InputJsonValue | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -4920,6 +6154,16 @@ export namespace Prisma {
     isNot?: UserWhereInput
   }
 
+  export type TemplateFilesListRelationFilter = {
+    every?: TemplateFilesWhereInput
+    some?: TemplateFilesWhereInput
+    none?: TemplateFilesWhereInput
+  }
+
+  export type TemplateFilesOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
   export type PlaygroundCountOrderByAggregateInput = {
     id?: SortOrder
     title?: SortOrder
@@ -5008,6 +6252,53 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedBoolFilter<$PrismaModel>
     _max?: NestedBoolFilter<$PrismaModel>
+  }
+  export type JsonFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<JsonFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+  }
+
+  export type TemplateFilesCountOrderByAggregateInput = {
+    id?: SortOrder
+    playgroundId?: SortOrder
+    content?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type TemplateFilesMaxOrderByAggregateInput = {
+    id?: SortOrder
+    playgroundId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type TemplateFilesMinOrderByAggregateInput = {
+    id?: SortOrder
+    playgroundId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+  export type JsonWithAggregatesFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<JsonWithAggregatesFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonWithAggregatesFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonWithAggregatesFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonWithAggregatesFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonWithAggregatesFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedJsonFilter<$PrismaModel>
+    _max?: NestedJsonFilter<$PrismaModel>
   }
 
   export type PlaygroundCreateNestedManyWithoutUserInput = {
@@ -5124,11 +6415,25 @@ export namespace Prisma {
     connect?: UserWhereUniqueInput
   }
 
+  export type TemplateFilesCreateNestedManyWithoutPlaygroundInput = {
+    create?: XOR<TemplateFilesCreateWithoutPlaygroundInput, TemplateFilesUncheckedCreateWithoutPlaygroundInput> | TemplateFilesCreateWithoutPlaygroundInput[] | TemplateFilesUncheckedCreateWithoutPlaygroundInput[]
+    connectOrCreate?: TemplateFilesCreateOrConnectWithoutPlaygroundInput | TemplateFilesCreateOrConnectWithoutPlaygroundInput[]
+    createMany?: TemplateFilesCreateManyPlaygroundInputEnvelope
+    connect?: TemplateFilesWhereUniqueInput | TemplateFilesWhereUniqueInput[]
+  }
+
   export type StarMarkUncheckedCreateNestedManyWithoutPlaygroundInput = {
     create?: XOR<StarMarkCreateWithoutPlaygroundInput, StarMarkUncheckedCreateWithoutPlaygroundInput> | StarMarkCreateWithoutPlaygroundInput[] | StarMarkUncheckedCreateWithoutPlaygroundInput[]
     connectOrCreate?: StarMarkCreateOrConnectWithoutPlaygroundInput | StarMarkCreateOrConnectWithoutPlaygroundInput[]
     createMany?: StarMarkCreateManyPlaygroundInputEnvelope
     connect?: StarMarkWhereUniqueInput | StarMarkWhereUniqueInput[]
+  }
+
+  export type TemplateFilesUncheckedCreateNestedManyWithoutPlaygroundInput = {
+    create?: XOR<TemplateFilesCreateWithoutPlaygroundInput, TemplateFilesUncheckedCreateWithoutPlaygroundInput> | TemplateFilesCreateWithoutPlaygroundInput[] | TemplateFilesUncheckedCreateWithoutPlaygroundInput[]
+    connectOrCreate?: TemplateFilesCreateOrConnectWithoutPlaygroundInput | TemplateFilesCreateOrConnectWithoutPlaygroundInput[]
+    createMany?: TemplateFilesCreateManyPlaygroundInputEnvelope
+    connect?: TemplateFilesWhereUniqueInput | TemplateFilesWhereUniqueInput[]
   }
 
   export type EnumTemplatesFieldUpdateOperationsInput = {
@@ -5157,6 +6462,20 @@ export namespace Prisma {
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutMyPlaygroundsInput, UserUpdateWithoutMyPlaygroundsInput>, UserUncheckedUpdateWithoutMyPlaygroundsInput>
   }
 
+  export type TemplateFilesUpdateManyWithoutPlaygroundNestedInput = {
+    create?: XOR<TemplateFilesCreateWithoutPlaygroundInput, TemplateFilesUncheckedCreateWithoutPlaygroundInput> | TemplateFilesCreateWithoutPlaygroundInput[] | TemplateFilesUncheckedCreateWithoutPlaygroundInput[]
+    connectOrCreate?: TemplateFilesCreateOrConnectWithoutPlaygroundInput | TemplateFilesCreateOrConnectWithoutPlaygroundInput[]
+    upsert?: TemplateFilesUpsertWithWhereUniqueWithoutPlaygroundInput | TemplateFilesUpsertWithWhereUniqueWithoutPlaygroundInput[]
+    createMany?: TemplateFilesCreateManyPlaygroundInputEnvelope
+    set?: TemplateFilesWhereUniqueInput | TemplateFilesWhereUniqueInput[]
+    disconnect?: TemplateFilesWhereUniqueInput | TemplateFilesWhereUniqueInput[]
+    delete?: TemplateFilesWhereUniqueInput | TemplateFilesWhereUniqueInput[]
+    connect?: TemplateFilesWhereUniqueInput | TemplateFilesWhereUniqueInput[]
+    update?: TemplateFilesUpdateWithWhereUniqueWithoutPlaygroundInput | TemplateFilesUpdateWithWhereUniqueWithoutPlaygroundInput[]
+    updateMany?: TemplateFilesUpdateManyWithWhereWithoutPlaygroundInput | TemplateFilesUpdateManyWithWhereWithoutPlaygroundInput[]
+    deleteMany?: TemplateFilesScalarWhereInput | TemplateFilesScalarWhereInput[]
+  }
+
   export type StarMarkUncheckedUpdateManyWithoutPlaygroundNestedInput = {
     create?: XOR<StarMarkCreateWithoutPlaygroundInput, StarMarkUncheckedCreateWithoutPlaygroundInput> | StarMarkCreateWithoutPlaygroundInput[] | StarMarkUncheckedCreateWithoutPlaygroundInput[]
     connectOrCreate?: StarMarkCreateOrConnectWithoutPlaygroundInput | StarMarkCreateOrConnectWithoutPlaygroundInput[]
@@ -5169,6 +6488,20 @@ export namespace Prisma {
     update?: StarMarkUpdateWithWhereUniqueWithoutPlaygroundInput | StarMarkUpdateWithWhereUniqueWithoutPlaygroundInput[]
     updateMany?: StarMarkUpdateManyWithWhereWithoutPlaygroundInput | StarMarkUpdateManyWithWhereWithoutPlaygroundInput[]
     deleteMany?: StarMarkScalarWhereInput | StarMarkScalarWhereInput[]
+  }
+
+  export type TemplateFilesUncheckedUpdateManyWithoutPlaygroundNestedInput = {
+    create?: XOR<TemplateFilesCreateWithoutPlaygroundInput, TemplateFilesUncheckedCreateWithoutPlaygroundInput> | TemplateFilesCreateWithoutPlaygroundInput[] | TemplateFilesUncheckedCreateWithoutPlaygroundInput[]
+    connectOrCreate?: TemplateFilesCreateOrConnectWithoutPlaygroundInput | TemplateFilesCreateOrConnectWithoutPlaygroundInput[]
+    upsert?: TemplateFilesUpsertWithWhereUniqueWithoutPlaygroundInput | TemplateFilesUpsertWithWhereUniqueWithoutPlaygroundInput[]
+    createMany?: TemplateFilesCreateManyPlaygroundInputEnvelope
+    set?: TemplateFilesWhereUniqueInput | TemplateFilesWhereUniqueInput[]
+    disconnect?: TemplateFilesWhereUniqueInput | TemplateFilesWhereUniqueInput[]
+    delete?: TemplateFilesWhereUniqueInput | TemplateFilesWhereUniqueInput[]
+    connect?: TemplateFilesWhereUniqueInput | TemplateFilesWhereUniqueInput[]
+    update?: TemplateFilesUpdateWithWhereUniqueWithoutPlaygroundInput | TemplateFilesUpdateWithWhereUniqueWithoutPlaygroundInput[]
+    updateMany?: TemplateFilesUpdateManyWithWhereWithoutPlaygroundInput | TemplateFilesUpdateManyWithWhereWithoutPlaygroundInput[]
+    deleteMany?: TemplateFilesScalarWhereInput | TemplateFilesScalarWhereInput[]
   }
 
   export type UserCreateNestedOneWithoutStaredPlaygroundsInput = {
@@ -5201,6 +6534,20 @@ export namespace Prisma {
     upsert?: PlaygroundUpsertWithoutStarMarkInput
     connect?: PlaygroundWhereUniqueInput
     update?: XOR<XOR<PlaygroundUpdateToOneWithWhereWithoutStarMarkInput, PlaygroundUpdateWithoutStarMarkInput>, PlaygroundUncheckedUpdateWithoutStarMarkInput>
+  }
+
+  export type PlaygroundCreateNestedOneWithoutTemplateFilesInput = {
+    create?: XOR<PlaygroundCreateWithoutTemplateFilesInput, PlaygroundUncheckedCreateWithoutTemplateFilesInput>
+    connectOrCreate?: PlaygroundCreateOrConnectWithoutTemplateFilesInput
+    connect?: PlaygroundWhereUniqueInput
+  }
+
+  export type PlaygroundUpdateOneRequiredWithoutTemplateFilesNestedInput = {
+    create?: XOR<PlaygroundCreateWithoutTemplateFilesInput, PlaygroundUncheckedCreateWithoutTemplateFilesInput>
+    connectOrCreate?: PlaygroundCreateOrConnectWithoutTemplateFilesInput
+    upsert?: PlaygroundUpsertWithoutTemplateFilesInput
+    connect?: PlaygroundWhereUniqueInput
+    update?: XOR<XOR<PlaygroundUpdateToOneWithWhereWithoutTemplateFilesInput, PlaygroundUpdateWithoutTemplateFilesInput>, PlaygroundUncheckedUpdateWithoutTemplateFilesInput>
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -5361,6 +6708,17 @@ export namespace Prisma {
     _min?: NestedBoolFilter<$PrismaModel>
     _max?: NestedBoolFilter<$PrismaModel>
   }
+  export type NestedJsonFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<NestedJsonFilterBase<$PrismaModel>>, Exclude<keyof Required<NestedJsonFilterBase<$PrismaModel>>, 'path'>>,
+        Required<NestedJsonFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<NestedJsonFilterBase<$PrismaModel>>, 'path'>>
+
+  export type NestedJsonFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+  }
 
   export type PlaygroundCreateWithoutUserInput = {
     id?: string
@@ -5370,6 +6728,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     StarMark?: StarMarkCreateNestedManyWithoutPlaygroundInput
+    templateFiles?: TemplateFilesCreateNestedManyWithoutPlaygroundInput
   }
 
   export type PlaygroundUncheckedCreateWithoutUserInput = {
@@ -5380,6 +6739,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     StarMark?: StarMarkUncheckedCreateNestedManyWithoutPlaygroundInput
+    templateFiles?: TemplateFilesUncheckedCreateNestedManyWithoutPlaygroundInput
   }
 
   export type PlaygroundCreateOrConnectWithoutUserInput = {
@@ -5527,6 +6887,29 @@ export namespace Prisma {
     create: XOR<UserCreateWithoutMyPlaygroundsInput, UserUncheckedCreateWithoutMyPlaygroundsInput>
   }
 
+  export type TemplateFilesCreateWithoutPlaygroundInput = {
+    id?: string
+    content: InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type TemplateFilesUncheckedCreateWithoutPlaygroundInput = {
+    id?: string
+    content: InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type TemplateFilesCreateOrConnectWithoutPlaygroundInput = {
+    where: TemplateFilesWhereUniqueInput
+    create: XOR<TemplateFilesCreateWithoutPlaygroundInput, TemplateFilesUncheckedCreateWithoutPlaygroundInput>
+  }
+
+  export type TemplateFilesCreateManyPlaygroundInputEnvelope = {
+    data: TemplateFilesCreateManyPlaygroundInput | TemplateFilesCreateManyPlaygroundInput[]
+  }
+
   export type StarMarkUpsertWithWhereUniqueWithoutPlaygroundInput = {
     where: StarMarkWhereUniqueInput
     update: XOR<StarMarkUpdateWithoutPlaygroundInput, StarMarkUncheckedUpdateWithoutPlaygroundInput>
@@ -5576,6 +6959,33 @@ export namespace Prisma {
     staredPlaygrounds?: StarMarkUncheckedUpdateManyWithoutUserNestedInput
   }
 
+  export type TemplateFilesUpsertWithWhereUniqueWithoutPlaygroundInput = {
+    where: TemplateFilesWhereUniqueInput
+    update: XOR<TemplateFilesUpdateWithoutPlaygroundInput, TemplateFilesUncheckedUpdateWithoutPlaygroundInput>
+    create: XOR<TemplateFilesCreateWithoutPlaygroundInput, TemplateFilesUncheckedCreateWithoutPlaygroundInput>
+  }
+
+  export type TemplateFilesUpdateWithWhereUniqueWithoutPlaygroundInput = {
+    where: TemplateFilesWhereUniqueInput
+    data: XOR<TemplateFilesUpdateWithoutPlaygroundInput, TemplateFilesUncheckedUpdateWithoutPlaygroundInput>
+  }
+
+  export type TemplateFilesUpdateManyWithWhereWithoutPlaygroundInput = {
+    where: TemplateFilesScalarWhereInput
+    data: XOR<TemplateFilesUpdateManyMutationInput, TemplateFilesUncheckedUpdateManyWithoutPlaygroundInput>
+  }
+
+  export type TemplateFilesScalarWhereInput = {
+    AND?: TemplateFilesScalarWhereInput | TemplateFilesScalarWhereInput[]
+    OR?: TemplateFilesScalarWhereInput[]
+    NOT?: TemplateFilesScalarWhereInput | TemplateFilesScalarWhereInput[]
+    id?: StringFilter<"TemplateFiles"> | string
+    playgroundId?: StringFilter<"TemplateFiles"> | string
+    content?: JsonFilter<"TemplateFiles">
+    createdAt?: DateTimeFilter<"TemplateFiles"> | Date | string
+    updatedAt?: DateTimeFilter<"TemplateFiles"> | Date | string
+  }
+
   export type UserCreateWithoutStaredPlaygroundsInput = {
     id?: string
     clerkId: string
@@ -5613,6 +7023,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     user: UserCreateNestedOneWithoutMyPlaygroundsInput
+    templateFiles?: TemplateFilesCreateNestedManyWithoutPlaygroundInput
   }
 
   export type PlaygroundUncheckedCreateWithoutStarMarkInput = {
@@ -5623,6 +7034,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     userId: string
+    templateFiles?: TemplateFilesUncheckedCreateNestedManyWithoutPlaygroundInput
   }
 
   export type PlaygroundCreateOrConnectWithoutStarMarkInput = {
@@ -5681,6 +7093,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutMyPlaygroundsNestedInput
+    templateFiles?: TemplateFilesUpdateManyWithoutPlaygroundNestedInput
   }
 
   export type PlaygroundUncheckedUpdateWithoutStarMarkInput = {
@@ -5690,6 +7103,65 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     userId?: StringFieldUpdateOperationsInput | string
+    templateFiles?: TemplateFilesUncheckedUpdateManyWithoutPlaygroundNestedInput
+  }
+
+  export type PlaygroundCreateWithoutTemplateFilesInput = {
+    id?: string
+    title: string
+    description?: string | null
+    template?: $Enums.Templates
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    StarMark?: StarMarkCreateNestedManyWithoutPlaygroundInput
+    user: UserCreateNestedOneWithoutMyPlaygroundsInput
+  }
+
+  export type PlaygroundUncheckedCreateWithoutTemplateFilesInput = {
+    id?: string
+    title: string
+    description?: string | null
+    template?: $Enums.Templates
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    userId: string
+    StarMark?: StarMarkUncheckedCreateNestedManyWithoutPlaygroundInput
+  }
+
+  export type PlaygroundCreateOrConnectWithoutTemplateFilesInput = {
+    where: PlaygroundWhereUniqueInput
+    create: XOR<PlaygroundCreateWithoutTemplateFilesInput, PlaygroundUncheckedCreateWithoutTemplateFilesInput>
+  }
+
+  export type PlaygroundUpsertWithoutTemplateFilesInput = {
+    update: XOR<PlaygroundUpdateWithoutTemplateFilesInput, PlaygroundUncheckedUpdateWithoutTemplateFilesInput>
+    create: XOR<PlaygroundCreateWithoutTemplateFilesInput, PlaygroundUncheckedCreateWithoutTemplateFilesInput>
+    where?: PlaygroundWhereInput
+  }
+
+  export type PlaygroundUpdateToOneWithWhereWithoutTemplateFilesInput = {
+    where?: PlaygroundWhereInput
+    data: XOR<PlaygroundUpdateWithoutTemplateFilesInput, PlaygroundUncheckedUpdateWithoutTemplateFilesInput>
+  }
+
+  export type PlaygroundUpdateWithoutTemplateFilesInput = {
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    template?: EnumTemplatesFieldUpdateOperationsInput | $Enums.Templates
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    StarMark?: StarMarkUpdateManyWithoutPlaygroundNestedInput
+    user?: UserUpdateOneRequiredWithoutMyPlaygroundsNestedInput
+  }
+
+  export type PlaygroundUncheckedUpdateWithoutTemplateFilesInput = {
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    template?: EnumTemplatesFieldUpdateOperationsInput | $Enums.Templates
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    userId?: StringFieldUpdateOperationsInput | string
+    StarMark?: StarMarkUncheckedUpdateManyWithoutPlaygroundNestedInput
   }
 
   export type PlaygroundCreateManyUserInput = {
@@ -5716,6 +7188,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     StarMark?: StarMarkUpdateManyWithoutPlaygroundNestedInput
+    templateFiles?: TemplateFilesUpdateManyWithoutPlaygroundNestedInput
   }
 
   export type PlaygroundUncheckedUpdateWithoutUserInput = {
@@ -5725,6 +7198,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     StarMark?: StarMarkUncheckedUpdateManyWithoutPlaygroundNestedInput
+    templateFiles?: TemplateFilesUncheckedUpdateManyWithoutPlaygroundNestedInput
   }
 
   export type PlaygroundUncheckedUpdateManyWithoutUserInput = {
@@ -5764,6 +7238,13 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
+  export type TemplateFilesCreateManyPlaygroundInput = {
+    id?: string
+    content: InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
   export type StarMarkUpdateWithoutPlaygroundInput = {
     isMarked?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -5781,6 +7262,24 @@ export namespace Prisma {
   export type StarMarkUncheckedUpdateManyWithoutPlaygroundInput = {
     userId?: StringFieldUpdateOperationsInput | string
     isMarked?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TemplateFilesUpdateWithoutPlaygroundInput = {
+    content?: InputJsonValue | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TemplateFilesUncheckedUpdateWithoutPlaygroundInput = {
+    content?: InputJsonValue | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TemplateFilesUncheckedUpdateManyWithoutPlaygroundInput = {
+    content?: InputJsonValue | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
