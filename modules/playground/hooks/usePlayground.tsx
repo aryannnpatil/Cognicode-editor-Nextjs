@@ -26,27 +26,45 @@ export const usePlayground = (id: string): UsePlaygroundReturn => {
   const [error, setError] = useState<string | null>(null);
 
   const loadPlayground = useCallback(async () => {
-    if (!id) return;
+    if (!id) {
+      setError("No playground ID provided");
+      setIsLoading(false);
+      return;
+    }
 
     try {
       setIsLoading(true);
       setError(null);
 
       const data = await getPlaygroundById(id);
-    //   @ts-ignore
+      
+      if (!data) {
+        throw new Error("Playground not found");
+      }
+
       setPlaygroundData(data);
 
-      const rawContent = data?.templateFiles?.[0]?.content;
-      if (typeof rawContent === "string") {
-        const parsedContent = JSON.parse(rawContent);
-        setTemplateData(parsedContent);
+      // Check if template files exist and have content
+      const templateFile = data.templateFiles?.[0];
+      if (templateFile?.content) {
+        // MongoDB stores JSON as object, not string
+        const content = templateFile.content;
+        if (typeof content === "string") {
+          setTemplateData(JSON.parse(content));
+        } else {
+          // Already an object (MongoDB JSON type)
+          setTemplateData(content as unknown as TemplateFolder);
+        }
         toast.success("Playground loaded successfully");
         return;
       }
 
       // Load template from API if not in saved content
       const res = await fetch(`/api/template/${id}`);
-      if (!res.ok) throw new Error(`Failed to load template: ${res.status}`);
+      if (!res.ok) {
+        const errorText = await res.text();
+        throw new Error(`Failed to load template: ${res.status} - ${errorText}`);
+      }
 
       const templateRes = await res.json();
       if (templateRes.templateJson && Array.isArray(templateRes.templateJson)) {
@@ -64,8 +82,9 @@ export const usePlayground = (id: string): UsePlaygroundReturn => {
       toast.success("Template loaded successfully");
     } catch (error) {
       console.error("Error loading playground:", error);
-      setError("Failed to load playground data");
-      toast.error("Failed to load playground data");
+      const errorMessage = error instanceof Error ? error.message : "Failed to load playground data";
+      setError(errorMessage);
+      toast.error(errorMessage);
     } finally {
       setIsLoading(false);
     }
