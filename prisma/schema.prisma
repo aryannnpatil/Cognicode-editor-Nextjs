@@ -30,6 +30,7 @@ enum UserRole {
   PREMIUM_USER
 }
 
+// Template Options
 enum Templates {
 REACT 
 NEXTJS
@@ -39,6 +40,8 @@ VUE
 HONO
 ANGULAR
 }
+
+// Playground Model
 
 model Playground{
   id         String     @id @default(cuid()) @map("_id")
@@ -58,6 +61,7 @@ model Playground{
 }
 
 
+// Model to track which Playgrounds are starred by which Users
 model StarMark{
   id        String     @id @default(cuid()) @map("_id")
   userId     String
@@ -73,6 +77,8 @@ model StarMark{
 }
 
 
+
+// Template Files associated with each Playground
 model TemplateFiles {
   id        String     @id @default(cuid()) @map("_id")
   playgroundId String @unique
