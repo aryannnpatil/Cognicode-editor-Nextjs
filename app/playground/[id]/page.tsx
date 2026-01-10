@@ -2,6 +2,7 @@
 import { Separator } from "@/components/ui/separator";
 import { SidebarInset, SidebarTrigger } from "@/components/ui/sidebar";
 import { TooltipProvider } from "@/components/ui/tooltip";
+import { TemplateFileTree } from "@/modules/playground/components/playground-explorer";
 import { usePlayground } from "@/modules/playground/hooks/usePlayground";
 import { useParams } from "next/navigation";
 import React from "react";
@@ -26,7 +27,7 @@ const MainPlaygroundPage = () => {
     <TooltipProvider>
       <>
        <TemplateFileTree
-          data={templateData}
+          data={templateData!}
           onFileSelect={()=>{}}
           selectedFile={activeFile}
           title="File Explorer"
