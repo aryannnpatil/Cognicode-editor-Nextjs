@@ -3,9 +3,12 @@ import { Separator } from "@/components/ui/separator";
 import { SidebarInset, SidebarTrigger } from "@/components/ui/sidebar";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { TemplateFileTree } from "@/modules/playground/components/playground-explorer";
+import { useFileExplorer } from "@/modules/playground/hooks/useFileExplorer";
 import { usePlayground } from "@/modules/playground/hooks/usePlayground";
+import { TemplateFile } from "@/modules/playground/libs/path-to-json";
+import { set } from "date-fns";
 import { useParams } from "next/navigation";
-import React from "react";
+import React, { useEffect } from "react";
 
 const MainPlaygroundPage = () => {
   const { id } = useParams<{ id: string }>();
@@ -18,25 +21,57 @@ const MainPlaygroundPage = () => {
     saveTemplateData,
   } = usePlayground(id);
 
-  console.log("TEMPLATE DATA:", templateData);
-  console.log("playground", playgroundData);
+  const {
+    activeFileId,
+    closeAllFiles,
+    openFile,
+    closeFile,
+    editorContent,
+    // updateFileContent,
+    // handleAddFile,
+    // handleAddFolder,
+    // handleDeleteFile,
+    // handleDeleteFolder,
+    // handleRenameFile,
+    // handleRenameFolder   ,
+    openFiles,
+    setTemplateData,
+    setActiveFileId,
+    setPlaygroundId,
+    setOpenFiles,
+  } = useFileExplorer();
 
-  const activeFile = "sample.txt"
+  useEffect(() => {
+    setPlaygroundId(id);
+  }, [id, setPlaygroundId]);
+
+  useEffect(() => {
+    if (templateData && !openFiles.length) {
+      setTemplateData(templateData);
+    }
+  }, [templateData, setTemplateData, openFiles.length]);
+
+  const activeFile = openFiles.find((file) => file.id === activeFileId);
+  const hasUnsavedChanges = openFiles.some((file) => file.hasUnsavedChanges);
+
+  const handleFileSelect = (file: TemplateFile) => {
+    openFile(file);
+  };
 
   return (
     <TooltipProvider>
       <>
-       <TemplateFileTree
+        <TemplateFileTree
           data={templateData!}
-          onFileSelect={()=>{}}
+          onFileSelect={handleFileSelect}
           selectedFile={activeFile}
           title="File Explorer"
-          onAddFile={()=>{}}
-          onAddFolder={()=>{}}
-          onDeleteFile={()=>{}}
-          onDeleteFolder={()=>{}}
-          onRenameFile={()=>{}}
-          onRenameFolder={()=>{}}
+          onAddFile={() => {}}
+          onAddFolder={() => {}}
+          onDeleteFile={() => {}}
+          onDeleteFolder={() => {}}
+          onRenameFile={() => {}}
+          onRenameFolder={() => {}}
         />
         <SidebarInset>
           <header className="flex h-16 shrink-0 items-center gap-2 border-b px-4">
