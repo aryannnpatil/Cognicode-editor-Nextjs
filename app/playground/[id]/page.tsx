@@ -140,7 +140,7 @@ const MainPlaygroundPage = () => {
                   <Bot className="h-4 w-4" />
                 </Button>
                 <DropdownMenu>
-                  <DropdownMenuTrigger asChild>
+                  <DropdownMenuTrigger>
                     <Button size="sm" variant="outline">
                       <Settings className="h-4 w-4" />
                     </Button>
