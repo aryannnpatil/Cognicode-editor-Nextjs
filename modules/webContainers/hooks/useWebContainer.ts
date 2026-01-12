@@ -20,7 +20,7 @@ export const useWebContainer = ({
   templateData,
 }: useWebContainerProps): useWebContainerReturn => {
   const [serverUrl, setServerUrl] = useState<string | null>(null);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const [instance, setInstance] = useState<WebContainer | null>(null);
 
@@ -29,15 +29,18 @@ export const useWebContainer = ({
 
     async function initWebContainer() {
       try {
+        setIsLoading(true);
+        console.log("Booting WebContainer...");
         const webContainerInstance = await WebContainer.boot();
 
         if (!mounted) return;
 
+        console.log("WebContainer booted successfully");
         setInstance(webContainerInstance);
         setIsLoading(false);
       } catch (error) {
         console.error("Error initializing WebContainer:", error);
-        if (!mounted) {
+        if (mounted) {
           setError(error instanceof Error ? error.message : String(error));
           setIsLoading(false);
         }
