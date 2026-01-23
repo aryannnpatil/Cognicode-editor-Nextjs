@@ -237,5 +237,5 @@ This project is private and proprietary.
 For questions and support, please open an issue in the repository.
 
 ---
-
+---web based ide
 **Built with ❤️ using Next.js and WebContainers**
