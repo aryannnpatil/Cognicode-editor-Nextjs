@@ -25,8 +25,7 @@ export interface TerminalRef {
   focusTerminal: () => void;
 }
 
-const 
-TerminalComponent = forwardRef<TerminalRef, TerminalProps>(({ 
+const TerminalComponent = forwardRef<TerminalRef, TerminalProps>(({ 
   webcontainerUrl, 
   className,
   theme = "dark",
@@ -99,8 +98,7 @@ TerminalComponent = forwardRef<TerminalRef, TerminalProps>(({
 
   const writePrompt = useCallback(() => {
     if (term.current) {
-      term.current.write("
-$ ");
+      term.current.write("\r\n$ ");
       currentLine.current = "";
       cursorPosition.current = 0;
     }
@@ -142,7 +140,7 @@ $ ");
 
       if (command.trim() === "history") {
         commandHistory.current.forEach((cmd, index) => {
-          term.current!.writeln(' {index + 1}  {cmd}');
+          term.current!.writeln(`  ${index + 1}  ${cmd}`);
         });
         writePrompt();
         return;
@@ -187,8 +185,7 @@ $ ");
 
     } catch (error) {
       if (term.current) {
-        term.current.writeln('
-Command not found: {command}');
+        term.current.writeln(`\r\nCommand not found: ${command}`);
         writePrompt();
       }
       currentProcess.current = null;
@@ -200,12 +197,11 @@ Command not found: {command}');
 
     // Handle special characters
     switch (data) {
-      case '
-': // Enter
+      case '\r': // Enter
         executeCommand(currentLine.current);
         break;
         
-      case '': // Backspace
+      case '\u007F': // Backspace
         if (cursorPosition.current > 0) {
           currentLine.current = 
             currentLine.current.slice(0, cursorPosition.current - 1) + 
@@ -213,11 +209,11 @@ Command not found: {command}');
           cursorPosition.current--;
           
           // Update terminal display
-          term.current.write(' ');
+          term.current.write('\b \b');
         }
         break;
         
-      case '': // Ctrl+C
+      case '\u0003': // Ctrl+C
         if (currentProcess.current) {
           currentProcess.current.kill();
           currentProcess.current = null;
@@ -226,7 +222,7 @@ Command not found: {command}');
         writePrompt();
         break;
         
-      case '[A': // Up arrow
+      case '\u001b[A': // Up arrow
         if (commandHistory.current.length > 0) {
           if (historyIndex.current === -1) {
             historyIndex.current = commandHistory.current.length - 1;
@@ -236,31 +232,25 @@ Command not found: {command}');
           
           // Clear current line and write history command
           const historyCommand = commandHistory.current[historyIndex.current];
-          term.current.write('
-$ ' + ' '.repeat(currentLine.current.length) + '
-$ ');
+          term.current.write('\r$ ' + ' '.repeat(currentLine.current.length) + '\r$ ');
           term.current.write(historyCommand);
           currentLine.current = historyCommand;
           cursorPosition.current = historyCommand.length;
         }
         break;
         
-      case '[B': // Down arrow
+      case '\u001b[B': // Down arrow
         if (historyIndex.current !== -1) {
           if (historyIndex.current < commandHistory.current.length - 1) {
             historyIndex.current++;
             const historyCommand = commandHistory.current[historyIndex.current];
-            term.current.write('
-$ ' + ' '.repeat(currentLine.current.length) + '
-$ ');
+            term.current.write('\r$ ' + ' '.repeat(currentLine.current.length) + '\r$ ');
             term.current.write(historyCommand);
             currentLine.current = historyCommand;
             cursorPosition.current = historyCommand.length;
           } else {
             historyIndex.current = -1;
-            term.current.write('
-$ ' + ' '.repeat(currentLine.current.length) + '
-$ ');
+            term.current.write('\r$ ' + ' '.repeat(currentLine.current.length) + '\r$ ');
             currentLine.current = "";
             cursorPosition.current = 0;
           }
@@ -269,7 +259,7 @@ $ ');
         
       default:
         // Regular character input
-        if (data >= ' ' || data === '	') {
+        if (data >= ' ' || data === '\t') {
           currentLine.current = 
             currentLine.current.slice(0, cursorPosition.current) + 
             data + 
@@ -372,8 +362,7 @@ $ ');
       for (let i = 0; i < buffer.length; i++) {
         const line = buffer.getLine(i);
         if (line) {
-          content += line.translateToString(true) + "
-";
+          content += line.translateToString(true) + "\n";
         }
       }
 
@@ -381,7 +370,7 @@ $ ');
       const url = URL.createObjectURL(blob);
       const a = document.createElement("a");
       a.href = url;
-      a.download = 'terminal-log-{new Date().toISOString().slice(0, 19)}.txt';
+      a.download = `terminal-log-${new Date().toISOString().slice(0, 19)}.txt`;
       a.click();
       URL.revokeObjectURL(url);
     }
