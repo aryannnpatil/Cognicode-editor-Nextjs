@@ -21,7 +21,9 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { ConfirmationDialog } from "@/modules/playground/components/dialogs/confirmation-dailog";
 import { LoadingStep } from "@/modules/playground/components/loader";
+import PlaygroundEditor from "@/modules/playground/components/playground-editor";
 import Playground_Editor from "@/modules/playground/components/playground-editor";
 import { TemplateFileTree } from "@/modules/playground/components/playground-explorer";
 import { useFileExplorer } from "@/modules/playground/hooks/useFileExplorer";
@@ -425,8 +427,7 @@ const MainPlaygroundPage = () => {
               </div>
             </div>
           </header>
-
-          <div className="h-[calc(100vh-4rem)]">
+  <div className="h-[calc(100vh-4rem)]">
             {openFiles.length > 0 ? (
               <div className="h-full flex flex-col">
                 {/* File Tabs */}
@@ -449,7 +450,7 @@ const MainPlaygroundPage = () => {
                                 {file.filename}.{file.fileExtension}
                               </span>
                               {file.hasUnsavedChanges && (
-                                <span className="h-2 w-2 rounded-full bg-red-500" />
+                                <span className="h-2 w-2 rounded-full bg-orange-500" />
                               )}
                               <span
                                 className="ml-2 h-4 w-4 hover:bg-destructive hover:text-destructive-foreground rounded-sm flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer"
@@ -464,6 +465,7 @@ const MainPlaygroundPage = () => {
                           </TabsTrigger>
                         ))}
                       </TabsList>
+
                       {openFiles.length > 1 && (
                         <Button
                           size="sm"
@@ -477,17 +479,33 @@ const MainPlaygroundPage = () => {
                     </div>
                   </Tabs>
                 </div>
+
+                {/* Editor and Preview */}
                 <div className="flex-1">
                   <ResizablePanelGroup
                     direction="horizontal"
                     className="h-full"
                   >
-                    <ResizablePanel defaultSize={isPreviewVisible ? 0.5 : 1}>
-                      <Playground_Editor
+                    <ResizablePanel defaultSize={isPreviewVisible ? 50 : 100}>
+                      {/* <PlaygroundEditor
                         activeFile={activeFile}
                         content={activeFile?.content || ""}
-                        onContentChange={() => {}}
-                      />
+                        onContentChange={(value) =>
+                          activeFileId && updateFileContent(activeFileId, value)
+                        }
+                        suggestion={aiSuggestions.suggestion}
+                        suggestionLoading={aiSuggestions.isLoading}
+                        suggestionPosition={aiSuggestions.position}
+                        onAcceptSuggestion={(editor, monaco) =>
+                          aiSuggestions.acceptSuggestion(editor, monaco)
+                        }
+                        onRejectSuggestion={(editor) =>
+                          aiSuggestions.rejectSuggestion(editor)
+                        }
+                        onTriggerSuggestion={(type, editor) =>
+                          aiSuggestions.fetchSuggestion(type, editor)
+                        }
+                      /> */}
                     </ResizablePanel>
 
                     {isPreviewVisible && (
@@ -495,7 +513,6 @@ const MainPlaygroundPage = () => {
                         <ResizableHandle />
                         <ResizablePanel defaultSize={50}>
                           <WebContainerPreview
-                            //@ts-ignore
                             templateData={templateData}
                             instance={instance}
                             writeFileSync={writeFileSync}
@@ -523,6 +540,15 @@ const MainPlaygroundPage = () => {
             )}
           </div>
         </SidebarInset>
+
+      {/* <ConfirmationDialog
+      isOpen={ConfirmationDialog.isOpen}
+      title={ConfirmationDialog.title}
+      description={ConfirmationDialog.description}
+      onConfirm={ConfirmationDialog.onConfirm}
+      onCancel={ConfirmationDialog.onCancel}
+      setIsOpen={(open) => setConfirmationDialog((prev) => ({ ...prev, isOpen: open }))}
+      /> */}
       </>
     </TooltipProvider>
   );
