@@ -329,7 +329,21 @@ export const useFileExplorer = create<FileExplorerState>((set, get) => ({
           }
         });
       };
+   closeFilesInFolder(
+        folder,
+        parentPath ? `${parentPath}/${folder.folderName}` : folder.folderName,
+      );
 
-   
+      set({ templateData: updatedTemplateData });
+
+      // Use the passed saveTemplateData function
+      await saveTemplateData(updatedTemplateData);
+      toast.success(`Deleted folder: ${folder.folderName}`);
+    } catch (error) {
+      console.error("Error deleting folder:", error);
+      toast.error("Failed to delete folder");
+    }
+  },
+
 
 }));
